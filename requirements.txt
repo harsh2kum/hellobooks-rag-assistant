@@ -1,8 +1,7 @@
 streamlit
-chromadb
 sentence-transformers
 transformers
+faiss-cpu
 torch
 python-dotenv
 tqdm
-pydantic==1.10.13   

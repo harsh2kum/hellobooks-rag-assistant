@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 from app.config import *
-from app.vectorstore import get_vector_store
+from app.vectorstore import search
 from app.prompts import SYSTEM_PROMPT
 
 
@@ -26,21 +26,12 @@ def load_models():
 
 embedding_model, tokenizer, model = load_models()
 
-collection, _ = get_vector_store()
-
 question = st.text_input("Ask a bookkeeping question:")
 
 if question:
 
-    query_embedding = embedding_model.encode(question).tolist()
-
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=TOP_K
-    )
-
-    documents = results["documents"][0]
-    metadatas = results["metadatas"][0]
+    # Retrieve relevant documents using FAISS
+    documents = search(question)
 
     context = "\n".join(documents)
 
@@ -63,5 +54,5 @@ if question:
 
     st.subheader("Sources")
 
-    for meta in metadatas:
-        st.write(meta["source"])
+    for doc in documents:
+        st.write("Knowledge Base Document")

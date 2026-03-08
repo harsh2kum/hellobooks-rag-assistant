@@ -1,18 +1,27 @@
-import chromadb
-from chromadb.config import Settings
-from app.config import VECTOR_DB_DIR
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from pathlib import Path
 
-def get_vector_store():
+model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
-    client = chromadb.Client(
-        Settings(
-            persist_directory=VECTOR_DB_DIR,
-            anonymized_telemetry=False
-        )
-    )
+documents = []
+embeddings = []
 
-    collection = client.get_or_create_collection(
-        name="hellobooks"
-    )
+kb_path = Path("knowledge_base")
 
-    return collection, client
+for file in kb_path.glob("*"):
+    text = file.read_text()
+    documents.append(text)
+    embeddings.append(model.encode(text))
+
+embeddings = np.array(embeddings).astype("float32")
+
+index = faiss.IndexFlatL2(embeddings.shape[1])
+index.add(embeddings)
+
+
+def search(query, k=3):
+    q_embedding = model.encode(query).astype("float32").reshape(1, -1)
+    distances, indices = index.search(q_embedding, k)
+    return [documents[i] for i in indices[0]]
