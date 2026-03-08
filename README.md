@@ -7,7 +7,16 @@
 
 An AI-powered bookkeeping assistant built using **Retrieval-Augmented Generation (RAG)**.
 
-This project answers basic accounting and bookkeeping questions using a local knowledge base and a lightweight LLM.
+This project answers basic accounting and bookkeeping questions using a local knowledge base, semantic search, and a lightweight language model.
+
+---
+
+# 🚀 Live Demo
+
+Try the deployed application here:
+
+🔗 **Hellobooks AI Assistant**
+https://hellobooks-rag-assistant-aktqrvlbj8gxjqkf2hk8jt.streamlit.app/
 
 ---
 
@@ -16,10 +25,11 @@ This project answers basic accounting and bookkeeping questions using a local kn
 * Retrieval-Augmented Generation (RAG)
 * Local knowledge base (markdown documents)
 * Semantic search using embeddings
-* Vector database with ChromaDB
-* Local LLM (FLAN-T5)
+* Vector search using **FAISS**
+* Local LLM (**FLAN-T5**)
 * Source citations for answers
 * Streamlit web interface
+* Live deployed AI assistant
 
 ---
 
@@ -27,16 +37,16 @@ This project answers basic accounting and bookkeeping questions using a local kn
 
 ```
 User Question
-↓
+      ↓
 Sentence Transformer Embedding
-↓
-ChromaDB Vector Search
-↓
+      ↓
+FAISS Vector Search
+      ↓
 Retrieve Relevant Documents
-↓
+      ↓
 FLAN-T5 Language Model
-↓
-Answer Generation
+      ↓
+Answer Generation + Sources
 ```
 
 ---
@@ -61,8 +71,6 @@ hellobooks-rag-assistant
 ├── scripts
 │   ├── ingest.py
 │   └── query.py
-│
-├── vector_store
 │
 ├── app_ui.py
 ├── requirements.txt
@@ -136,15 +144,6 @@ python scripts/ingest.py
 
 ---
 
-```markdown
-# 📸 Screenshots
-
-### Streamlit Web Interface
-
-![UI](docs/ui.png)
-
-### Question Answer Example
-
 # 💬 Run CLI Assistant
 
 Ask bookkeeping questions from terminal.
@@ -177,6 +176,14 @@ http://localhost:8501
 
 ---
 
+# 📸 Application Preview
+
+### Streamlit Web Interface
+
+![UI](docs/ui.png)
+
+---
+
 # 🧪 Example Questions
 
 * What is bookkeeping?
@@ -191,7 +198,7 @@ http://localhost:8501
 
 * Python
 * Sentence Transformers
-* ChromaDB
+* FAISS Vector Search
 * HuggingFace Transformers
 * FLAN-T5
 * Streamlit
@@ -216,6 +223,6 @@ MIT License
 
 # 👨‍💻 Author
 
-Harsh Kumar
+**Harsh Kumar**
 B.Tech Computer Science (Data Science)
 ABES Engineering College
