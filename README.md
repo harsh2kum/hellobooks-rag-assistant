@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![RAG](https://img.shields.io/badge/AI-RAG-green)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # 📊 Hellobooks AI Assistant (RAG)
 
 An AI-powered bookkeeping assistant built using **Retrieval-Augmented Generation (RAG)**.
@@ -130,6 +135,15 @@ python scripts/ingest.py
 ```
 
 ---
+
+```markdown
+# 📸 Screenshots
+
+### Streamlit Web Interface
+
+![UI](docs/ui.png)
+
+### Question Answer Example
 
 # 💬 Run CLI Assistant
 
