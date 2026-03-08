@@ -1,7 +1,8 @@
-streamlit
-chromadb
-sentence-transformers
-transformers
+streamlit==1.35.0
+chromadb==0.4.24
+sentence-transformers==2.6.1
+transformers==4.41.2
 torch
 python-dotenv
 tqdm
+pydantic==1.10.13
