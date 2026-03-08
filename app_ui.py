@@ -30,29 +30,34 @@ question = st.text_input("Ask a bookkeeping question:")
 
 if question:
 
-    # Retrieve relevant documents using FAISS
-    documents = search(question)
+    with st.spinner("Thinking..."):
 
-    context = "\n".join(documents)
+        # Retrieve documents from FAISS
+        results = search(question)
 
-    prompt = SYSTEM_PROMPT.format(
-        context=context,
-        question=question
-    )
+        documents = [r["document"] for r in results]
+        sources = [r["source"] for r in results]
 
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
+        context = "\n".join(documents)
 
-    outputs = model.generate(
-        **inputs,
-        max_new_tokens=200
-    )
+        prompt = SYSTEM_PROMPT.format(
+            context=context,
+            question=question
+        )
 
-    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
+
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=200
+        )
+
+        answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     st.subheader("Answer")
-    st.write(answer)
+    st.success(answer)
 
     st.subheader("Sources")
 
-    for doc in documents:
-        st.write("Knowledge Base Document")
+    for source in sources:
+        st.write(source)
